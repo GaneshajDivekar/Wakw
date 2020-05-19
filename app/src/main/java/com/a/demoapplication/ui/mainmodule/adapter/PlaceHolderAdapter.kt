@@ -63,17 +63,11 @@ class PlaceHolderAdapter(
         if (placeholdersList.get(position).thumbnailUrl.equals("")|| placeholdersList.get(position).thumbnailUrl==null){
             holder.imgGrid.setImageResource(R.drawable.ic_no_image)
         }else {
-            var url=placeholdersList.get(position).thumbnailUrl/*+".png"*/
+            var url=placeholdersList.get(position).thumbnailUrl
             PicassoTrustAll.getInstance(context)
                 .load(url)
                 .into(holder.imgGrid);
 
-/*
-            Glide.with(context)
-                .load(aUrl)
-                .placeholder(R.drawable.ic_no_image)
-                .into(holder.imgGrid)
-*/
         }
 
 

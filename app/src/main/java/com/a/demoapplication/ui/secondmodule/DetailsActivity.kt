@@ -2,6 +2,7 @@ package com.a.demoapplication.ui.secondmodule
 
 import android.os.Bundle
 import android.util.Log
+import com.a.demoapplication.PicassoTrustAll
 import com.a.demoapplication.core.presentation.base.BaseActivity
 import com.a.demoapplication.data.api.PlaceHolderModel
 import com.a.demoapplication.utils.DialogUtils
@@ -20,46 +21,13 @@ class DetailsActivity : BaseActivity<ActivityDetailsBinding, DetailsViewModel>()
         DialogUtils.startProgressDialog(this@DetailsActivity)
 
         var data = intent.getParcelableExtra<PlaceHolderModel>("placeholdermodel")
-        Log.e("data", data.toString())
-
-        Glide.with(this@DetailsActivity)
-            .load("https://via.placeholder.com/150/24f355")
-            .error(R.drawable.ic_no_image)
-            .into(activityDetailsBinding?.imageView!!)
+       var url =  data.thumbnailUrl;
+        PicassoTrustAll.getInstance(this@DetailsActivity)
+            .load(url)
+            .into(activityDetailsBinding?.imageView!!);
 
         DialogUtils.stopProgressDialog()
 
-
-/*
-
-        Glide.with(this@DetailsActivity)
-            .load(data.thumbnailUrl)
-            .centerCrop()
-            .listener(object: RequestListener<Drawable> {
-                override fun onLoadFailed(
-                    e: GlideException?,
-                    model: Any?,
-                    target: Target<Drawable>?,
-                    isFirstResource: Boolean
-                ): Boolean {
-                    return false;
-                }
-
-                override fun onResourceReady(
-                    resource: Drawable?,
-                    model: Any?,
-                    target: Target<Drawable>?,
-                    dataSource: DataSource?,
-                    isFirstResource: Boolean
-                ): Boolean {
-                    return false;
-                }
-
-            })
-            .apply(myOptions)
-            .into(activityDetailsBinding?.imageView!!)
-
-*/
 
 
         activityDetailsBinding?.txtGridName?.setText(data.title)
