@@ -2,23 +2,19 @@ package com.a.demoapplication.ui.mainmodule.adapter
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.graphics.BitmapFactory
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.annotation.NonNull
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
+import com.a.demoapplication.PicassoTrustAll
 import com.a.demoapplication.data.api.PlaceHolderModel
 import com.a.demoapplication.ui.mainmodule.MainActivity
-import com.a.demoapplication.utils.utility
 import com.bumptech.glide.Glide
 import com.demoapplication.R
-import kotlinx.android.synthetic.main.single_grid_view.view.*
-import java.io.IOException
-import java.net.URL
+import com.squareup.picasso.Picasso
 
 
 class PlaceHolderAdapter(
@@ -67,12 +63,19 @@ class PlaceHolderAdapter(
         if (placeholdersList.get(position).thumbnailUrl.equals("")|| placeholdersList.get(position).thumbnailUrl==null){
             holder.imgGrid.setImageResource(R.drawable.ic_no_image)
         }else {
-            var url=placeholdersList.get(position).thumbnailUrl
-            Glide.with(context)
+            var url=placeholdersList.get(position).thumbnailUrl/*+".png"*/
+            PicassoTrustAll.getInstance(context)
                 .load(url)
+                .into(holder.imgGrid);
+
+/*
+            Glide.with(context)
+                .load(aUrl)
                 .placeholder(R.drawable.ic_no_image)
                 .into(holder.imgGrid)
+*/
         }
+
 
         holder.itemView.setOnClickListener(object : View.OnClickListener {
             override fun onClick(v: View?) {
